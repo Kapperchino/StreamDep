@@ -4,6 +4,8 @@
 plugins {
     id "java"
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+
 }
 
 repositories {
@@ -13,6 +15,28 @@ repositories {
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            groupId = 'kapperchino'
+            artifactId = 'stream-deps'
+            version = '0.31'
+            project.shadow.component(publication)
+        }
+    }
+    repositories {
+        maven {
+            url = "https://maven.pkg.github.com/Kapperchino/StreamDep"
+            credentials {
+                username = project.properties['usr']
+                password = project.properties['pwd']
+                println(password);
+            }
+        }
     }
 }
 
