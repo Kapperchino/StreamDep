@@ -18,14 +18,19 @@ java {
     }
 }
 
+configurations.archives.artifacts.clear()
+artifacts {
+    add("archives", shadowJar)
+}
+
 
 publishing {
     publications {
         shadow(MavenPublication) { publication ->
+            from components.java
             groupId = 'kapperchino'
             artifactId = 'stream-deps'
-            version = '0.31'
-            project.shadow.component(publication)
+            version = '0.33'
         }
     }
     repositories {
@@ -43,7 +48,7 @@ publishing {
 dependencies {
     implementation fileTree(dir: 'lib', include: ['*.jar'])
     implementation 'com.google.guava:guava:31.0.1-jre'
-    implementation 'com.google.dagger:dagger:2.+'
+    implementation 'com.google.dagger:dagger:2.41'
     implementation 'org.apache.commons:commons-text:1.9'
     implementation 'com.beust:jcommander:1.82'
     implementation 'io.dropwizard.metrics:metrics-core:3.2.5'
@@ -53,4 +58,7 @@ dependencies {
 
 shadowJar {
     relocate 'org.apache.ratis.thirdparty.io.opencensus', 'io.opencensus'
+    archiveBaseName.set('stream-dep')
+    archiveClassifier.set('')
+    archiveVersion.set('')
 }
