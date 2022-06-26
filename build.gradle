@@ -30,7 +30,7 @@ publishing {
             from components.java
             groupId = 'kapperchino'
             artifactId = 'stream-deps'
-            version = '0.33'
+            version = '0.34'
         }
     }
     repositories {
@@ -59,6 +59,6 @@ dependencies {
 shadowJar {
     relocate 'org.apache.ratis.thirdparty.io.opencensus', 'io.opencensus'
     archiveBaseName.set('stream-dep')
-    archiveClassifier.set('')
-    archiveVersion.set('')
+    archiveClassifier.set('dep')
+    archiveVersion.set('0.34')
 }
