@@ -30,7 +30,7 @@ publishing {
             from components.java
             groupId = 'kapperchino'
             artifactId = 'stream-deps'
-            version = '0.34'
+            version = '0.37'
         }
     }
     repositories {
@@ -39,8 +39,17 @@ publishing {
             credentials {
                 username = project.properties['usr']
                 password = project.properties['pwd']
-                println(password);
             }
+        }
+    }
+}
+
+repositories {
+    maven {
+        url = "https://maven.pkg.github.com/Kapperchino/scalecube-cluster"
+        credentials {
+            username = project.properties['usr']
+            password = project.properties['pwd']
         }
     }
 }
@@ -50,6 +59,12 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.google.dagger:dagger:2.42'
     implementation 'org.apache.commons:commons-text:1.9'
+    implementation "io.scalecube:scalecube-cluster:2.6.13"
+    implementation "io.scalecube:scalecube-cluster-api:2.6.13"
+    implementation "io.scalecube:scalecube-cluster-parent:2.6.13"
+    implementation "io.scalecube:scalecube-transport-netty:2.6.13"
+    implementation "io.scalecube:scalecube-transport-api:2.6.13"
+    implementation "io.scalecube:scalecube-transport-parent:2.6.13"
     implementation 'com.beust:jcommander:1.82'
     implementation 'io.dropwizard.metrics:metrics-core:3.2.5'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
@@ -60,5 +75,5 @@ shadowJar {
     relocate 'org.apache.ratis.thirdparty.io.opencensus', 'io.opencensus'
     archiveBaseName.set('stream-dep')
     archiveClassifier.set('dep')
-    archiveVersion.set('0.34')
+    archiveVersion.set('0.37')
 }
